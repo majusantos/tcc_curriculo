@@ -4,7 +4,9 @@ const db = require('../database/connection');
 module.exports = {
     async listarCandidatos(request, response){
         try {
-            return response.status(200).json({confirma: 'Listar Candidatos'});
+            const sql = 'SELECT cand_id, cand_cpf, cand_dtnasc,cand_profissao, cand_defi, cand_obs, cand_nivel_esc, cand_status FROM candidatos';
+            const candidatos = await db.query(sql);
+            return response.status(200).json({confirma: candidatos});
         } catch (error) {
             return response.status (500).json({confirma: 'Erro', message: error});
         }

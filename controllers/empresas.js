@@ -4,7 +4,9 @@ const db = require('../database/connection');
 module.exports = {
     async listarEmpresas(request, response){
         try {
-            return response.status(200).json({confirma: 'Listar Empresas'});
+            const sql = 'SELECT emp_id, emp_nome, emp_cnpj, emp_obs FROM empresas';
+            const empresas = await db.query(sql)
+            return response.status(200).json({confirma: empresas});
         } catch (error) {
             return response.status (500).json({confirma: 'Erro', message: error});
         }

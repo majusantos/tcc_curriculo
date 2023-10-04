@@ -46,7 +46,7 @@ router.post('/vagas', VagasController.cadastrarVagas);
 router.patch('/vagas', VagasController.editarVagas);
 router.delete('/vagas', VagasController.apagarVagas);
 
-module.children.exports = router;
+module.exports = router;
 
 
 
