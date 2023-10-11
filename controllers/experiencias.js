@@ -6,7 +6,15 @@ module.exports = {
         try {
             const sql = 'SELECT exp_id, exp_empresa, exp_cargo, exp_dt_inicio, exp_dt_fim, exp_descricao_cargo, cand_id FROM experiencias';
             const experiencias = await db.query(sql);
-            return response.status(200).json({confirma: experiencias});
+            const nReg = experiencias[0].lenght;
+            return response.status(200).json(
+                {
+                    confirma: 'Sucesso',
+                    message: 'Experiências cadastradas',
+                    nItens: nReg,
+                    itens: experiencias[0]
+                }
+            );
         } catch (error) {
             return response.status (500).json({confirma: 'Erro', message: error});
         }

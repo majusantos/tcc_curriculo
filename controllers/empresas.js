@@ -5,8 +5,15 @@ module.exports = {
     async listarEmpresas(request, response){
         try {
             const sql = 'SELECT emp_id, emp_nome, emp_cnpj, emp_obs FROM empresas';
-            const empresas = await db.query(sql)
-            return response.status(200).json({confirma: empresas});
+            const empresas = await db.query(sql);
+            const nReg = empresas[0].lenght;
+            return response.status(200).json(
+            {
+                confirma: 'Sucesso',
+                message: 'Empresas cadastradas',
+                nItens: nReg,
+                itens: empresas[0]
+            });
         } catch (error) {
             return response.status (500).json({confirma: 'Erro', message: error});
         }

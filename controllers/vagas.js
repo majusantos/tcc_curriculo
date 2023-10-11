@@ -4,9 +4,16 @@ const db = require('../database/connection');
 module.exports = {
     async listarVagas(request, response){
         try {
-            const sql = 'SELECT vaga_id, emp_id, vaga_cargo, vaga_requisitos, vaga_quantidade, vaga_salario, vaga_cargah, vaga_beneficios, vaga_status FROM vagas';
+            const sql = 'SELECT vaga_id, emp_id, vaga_cargo, vaga_requisitos, vaga_quantidade, vaga_salario, vaga_cargah, vaga_beneficios, vaga_status = 1 FROM vagas';
             const vagas = await db.query(sql);
-            return response.status(200).json({confirma: vagas});
+            const nReg = vagas[0].lenght;
+            return response.status(200).json(
+             {
+                confirma: 'Sucesso',
+                message: 'Vagas cadastradas',
+                nItens: nReg,
+                itens: vagas[0]
+            });
         } catch (error) {
             return response.status (500).json({confirma: 'Erro', message: error});
         }

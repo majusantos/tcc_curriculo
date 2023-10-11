@@ -6,7 +6,14 @@ module.exports = {
         try {
             const sql = 'SELECT usu_id, usu_nome, usu_email, usu_senha, usu_tipo, usu_telefone, usu_endereco, usu_cep, usu_estado, usu_cidade FROM usuarios';
             const usuarios = await db.query(sql);
-            return response.status(200).json({confirma: usuarios});
+            const nReg = usuarios[0].lenght;
+            return response.status(200).json(
+            {
+                confirma: 'Sucesso',
+                message: 'Usuários cadastrados',
+                nItens: nReg,
+                itens: usuarios[0]
+            });
         } catch (error) {
             return response.status (500).json({confirma: 'Erro', message: error});
         }
