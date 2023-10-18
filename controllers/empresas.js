@@ -20,8 +20,21 @@ module.exports = {
     },
     async cadastrarEmpresas(request, response){
         try {
-            return response.status(200).json({confirma: 'Cadastrar Empresas'});
-        } catch (error) {
+            const {emp_id, emp_nome, emp_cnpj, emp_obs} = request.body;
+            const sql = 'INSERT INTO empresas (emp_id, emp_nome, emp_cnpj, emp_obs) VALUES (?,?,?,?);';
+            const values = [emp_id, emp_nome, emp_cnpj, emp_obs]
+            const confirmacao = await db.query(sql, values);
+            const emp_id2 = confirmacao[0].insertId;
+            return response.status(200).json(
+                {
+                    confirma:'Sucesso',
+                    message:'Empresa efetuada com sucesso',
+                    emp_id2
+                }
+            );
+            }
+        
+        catch (error) {
             return response.status (500).json({confirma: 'Erro', message: error});
         }
     },

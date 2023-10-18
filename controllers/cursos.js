@@ -20,7 +20,19 @@ module.exports = {
     },
     async cadastrarCursos(request, response){
         try {
-            return response.status(200).json({confirma: 'Cadastrar Cursos'});
+            const {cand_id, cur_nome, cur_data_inicio, cur_data_fim, cur_obs, cur_concluido} = request.body;
+            const sql = 'INSERT INTO cursos (cand_id, cur_nome, cur_data_inicio, cur_data_fim, cur_obs, cur_concluido) VALUES (?,?,?,?,?,?);';
+            const values = [cand_id, cur_nome, cur_data_inicio, cur_data_fim, cur_obs, cur_concluido]
+            const confirmacao = await db.query(sql, values);
+            const cur_id = confirmacao[0].insertId;
+            return response.status(200).json(
+              {
+                confirma:'Sucesso',
+                message:'Curso efetuado com sucesso',
+                cur_id,
+              }  
+            );  
+
         } catch (error) {
             return response.status (500).json({confirma: 'Erro', message: error});
         }

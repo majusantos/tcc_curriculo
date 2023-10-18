@@ -30,7 +30,7 @@ module.exports = {
                 {
                     confirma:'Sucesso',
                     message:'Cadastro efetuado com sucesso',
-                    cand_id
+                    cand_id2 
                 }
             );
         } catch (error) {
