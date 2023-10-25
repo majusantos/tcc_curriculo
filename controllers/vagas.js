@@ -20,7 +20,18 @@ module.exports = {
     },
     async cadastrarVagas(request, response){
         try {
-            return response.status(200).json({confirma: 'Cadastrar Vagas'});
+            const { emp_id, vaga_cargo, vaga_requisitos, vaga_quantidade, vaga_salario, vaga_cargah, vaga_beneficios, vaga_status} = request.body;
+            const sql = 'INSERT INTO vagas (emp_id, vaga_cargo, vaga_requisitos, vaga_quantidade, vaga_salario, vaga_cargah, vaga_beneficios, vaga_status) VALUES (?,?,?,?,?,?,?,?);';
+            const values = [ emp_id, vaga_cargo, vaga_requisitos, vaga_quantidade, vaga_salario, vaga_cargah, vaga_beneficios, vaga_status]
+            const confirmacao = await db.query(sql, values);
+            const vaga_id = confirmacao[0].insertId;
+            return response.status(200).json(
+                {
+                    confirma:'Sucesso',
+                    message:'Vaga cadastrada com sucesso',
+                    vaga_id
+                }
+            );
         } catch (error) {
             return response.status (500).json({confirma: 'Erro', message: error});
         }

@@ -18,7 +18,7 @@ router.delete('/candidato_vaga', CandidatoVagaController.apagarCandidatoVaga);
 
 router.get('/candidatos', CandidatosController.listarCandidatos);
 router.post('/candidatos', CandidatosController.cadastrarCandidatos);
-router.patch('/candidatos', CandidatosController.editarCandidatos);
+router.patch('/candidatos/:cand_id', CandidatosController.editarCandidatos);
 router.delete('/candidatos', CandidatosController.apagarCandidatos);
 
 router.get('/cursos', CursosController.listarCursos);

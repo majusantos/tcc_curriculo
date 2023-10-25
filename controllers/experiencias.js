@@ -22,7 +22,7 @@ module.exports = {
     async cadastrarExperiencias(request, response){
         try {
             const {exp_empresa, exp_cargo, exp_dt_inicio, exp_dt_fim, exp_descricao_cargo, cand_id} = request.body;
-            const sql = 'INSERT INTO empresas (exp_empresa, exp_cargo, exp_dt_inicio, exp_dt_fim, exp_descricao_cargo, cand_id) VALUES (?,?,?,?,?,?);';
+            const sql = 'INSERT INTO experiencias (exp_empresa, exp_cargo, exp_dt_inicio, exp_dt_fim, exp_descricao_cargo, cand_id) VALUES (?,?,?,?,?,?);';
             const values = [exp_empresa, exp_cargo, exp_dt_inicio, exp_dt_fim, exp_descricao_cargo, cand_id]
             const confirmacao = await db.query(sql, values);
             const exp_id = confirmacao[0].insertId;

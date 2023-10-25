@@ -39,7 +39,18 @@ module.exports = {
     },
     async editarCandidatos(request, response){
         try {
-            return response.status(200).json({confirma: 'Editar Candidatos'});
+            const {cand_cpf, cand_dtnasc, cand_profissao, cand_defi, cand_obs, cand_nivel_esc, cand_status} = request.body;
+            const {cand_id} = request.params;
+            const sql = 'UPDATE candidatos set cand_cpf = ?, cand_dtnasc = ?, cand_profissao = ?, cand_defi = ?, cand_obs = ?, cand_nivel_esc = ?, cand_status = ? WHERE cand_id;';
+            const values = [cand_cpf, cand_dtnasc, cand_profissao, cand_defi, cand_obs, cand_nivel_esc, cand_status];
+            const atualizacao = await db.query (sql, values);
+            return response.status(200).jason(
+                {
+                 confirma: 'Sucesso',
+                 message: 'Candidato' + cand_id + 'atualizado com sucesso!',
+                 registrosAtualizados: atualizacao[0].affectedRows
+                }
+            );
         } catch (error) {
             return response.status (500).json({confirma: 'Erro', message: error});
         }
