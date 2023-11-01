@@ -19,32 +19,32 @@ router.delete('/candidato_vaga', CandidatoVagaController.apagarCandidatoVaga);
 router.get('/candidatos', CandidatosController.listarCandidatos);
 router.post('/candidatos', CandidatosController.cadastrarCandidatos);
 router.patch('/candidatos/:cand_id', CandidatosController.editarCandidatos);
-router.delete('/candidatos', CandidatosController.apagarCandidatos);
+router.delete('/candidatos/:cand_id', CandidatosController.apagarCandidatos);
 
 router.get('/cursos', CursosController.listarCursos);
 router.post('/cursos', CursosController.cadastrarCursos);
-router.patch('/cursos', CursosController.editarCursos);
-router.delete('/cursos', CursosController.apagarCursos);
+router.patch('/cursos/:cur_id', CursosController.editarCursos);
+router.delete('/cursos/:cur_id', CursosController.apagarCursos);
 
 router.get('/empresas', EmpresasController.listarEmpresas);
 router.post('/empresas', EmpresasController.cadastrarEmpresas);
-router.patch('/empresas', EmpresasController.editarEmpresas);
-router.delete('/empresas', EmpresasController.apagarEmpresas);
+router.patch('/empresas/:emp_id', EmpresasController.editarEmpresas);
+router.delete('/empresas/:emp_id', EmpresasController.apagarEmpresas);
 
 router.get('/experiencias', ExperienciassController.listarExperiencias);
 router.post('/experiencias', ExperienciassController.cadastrarExperiencias);
-router.patch('/experiencias', ExperienciassController.editarExperiencias);
-router.delete('/experiencias', ExperienciassController.apagarExperiencias);
+router.patch('/experiencias/:exp_id', ExperienciassController.editarExperiencias);
+router.delete('/experiencias/:exp_id', ExperienciassController.apagarExperiencias);
 
 router.get('/usuarios', UsuariosController.listarUsuarios);
 router.post('/usuarios', UsuariosController.cadastrarUsuarios);
-router.patch('/usuarios', UsuariosController.editarUsuarios);
-router.delete('/usuarios', UsuariosController.apagarUsuarios);
+router.patch('/usuarios/:usu_id', UsuariosController.editarUsuarios);
+router.delete('/usuarios/:usu_id', UsuariosController.apagarUsuarios);
 
 router.get('/vagas', VagasController.listarVagas);
 router.post('/vagas', VagasController.cadastrarVagas);
-router.patch('/vagas', VagasController.editarVagas);
-router.delete('/vagas', VagasController.apagarVagas);
+router.patch('/vagas/:vaga_id', VagasController.editarVagas);
+router.delete('/vagas/:vaga_id', VagasController.apagarVagas);
 
 module.exports = router;
 

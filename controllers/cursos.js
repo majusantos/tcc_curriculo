@@ -39,14 +39,34 @@ module.exports = {
     },
     async editarCursos(request, response){
         try {
-            return response.status(200).json({confirma: 'Editar Cursos'});
+            const {cand_id, cur_nome, cur_data_inicio, cur_data_fim, cur_obs, cur_concluido} = request.body;
+            const {cur_id} = request.params;
+            const sql = 'UPDATE cursos set cand_id = ?, cur_nome = ?, cur_data_inicio = ?, cur_data_fim = ?, cur_obs = ?, cur_cocluido = ? WHERE cur_id;';
+            const values = [cand_id, cur_nome, cur_data_inicio, cur_data_fim, cur_obs, cur_concluido];
+            const atualizacao = await db.query (sql, values);
+            return response.status(200).jason(
+                {
+                 confirma: 'Sucesso',
+                 message: 'Curso' + cur_id + 'atualizado com sucesso!',
+                 registrosAtualizados: atualizacao[0].affectedRows
+                }
+            );
         } catch (error) {
             return response.status (500).json({confirma: 'Erro', message: error});
         }
     },
     async apagarCursos(request, response){
         try {
-            return response.status(200).json({confirma: 'Apagar Cursos'});
+            const { cur_id } = request.params;
+            const sql = 'DELETE FROM cursos WHERE cur_id = ?';
+            const values = [cur_id];
+            await db.query(sql, values);
+            return response.status(200).json(
+                 {
+                    confirma:'Sucesso',
+                    message:'Curso com o id' + cand_id + 'foi excluído com sucesso'
+                 }
+            );
         } catch (error) {
             return response.status (500).json({confirma: 'Erro', message: error});
         }

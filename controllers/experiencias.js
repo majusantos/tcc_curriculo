@@ -39,14 +39,34 @@ module.exports = {
     },
     async editarExperiencias(request, response){
         try {
-            return response.status(200).json({confirma: 'Editar Experiencias'});
+            const {exp_empresa, exp_cargo, exp_dt_inicio, exp_dt_fim, exp_descricao_cargo, cand_id} = request.body;
+            const {exp_id} = request.params;
+            const sql = 'UPDATE experiencias set exp_empresa = ?, exp_cargo = ?, exp_dt_inicio = ?, exp_dt_fim = ?, exp_descricao_cargo = ?, cand_id = ? WHERE exp_id;';
+            const values = [exp_empresa, exp_cargo, exp_dt_inicio, exp_dt_fim, exp_descricao_cargo, cand_id];
+            const atualizacao = await db.query (sql, values);
+            return response.status(200).jason(
+                {
+                 confirma: 'Sucesso',
+                 message: 'Experiência' + exp_id + 'atualizada com sucesso!',
+                 registrosAtualizados: atualizacao[0].affectedRows
+                }
+            );
         } catch (error) {
             return response.status (500).json({confirma: 'Erro', message: error});
         }
     },
     async apagarExperiencias(request, response){
         try {
-            return response.status(200).json({confirma: 'Apagar Experiencias'});
+            const { exp_id } = request.params;
+            const sql = 'DELETE FROM experiencias WHERE exp_id = ?';
+            const values = [exp_id];
+            await db.query(sql, values);
+            return response.status(200).json(
+                 {
+                    confirma:'Sucesso',
+                    message:'Experiência com o id' + exp_id + 'foi excluída com sucesso'
+                 }
+            );
         } catch (error) {
             return response.status (500).json({confirma: 'Erro', message: error});
         }

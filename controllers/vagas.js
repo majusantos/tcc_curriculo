@@ -38,14 +38,34 @@ module.exports = {
     },
     async editarVagas(request, response){
         try {
-            return response.status(200).json({confirma: 'Editar Vagas'});
+            const {emp_id, vaga_cargo, vaga_requisitos, vaga_quantidade, vaga_salario, vaga_cargah, vaga_beneficios, vaga_status} = request.body;
+            const {vaga_id} = request.params;
+            const sql = 'UPDATE vagas set emp_id = ?, vaga_cargo = ?, vaga_requisitos = ?, vaga_quantidade = ?, vaga_salario = ?, vaga_cargah = ?, vaga_beneficios = ?, vaga_status = ? WHERE vaga_id;';
+            const values = [emp_id, vaga_cargo, vaga_requisitos, vaga_quantidade, vaga_salario, vaga_cargah, vaga_beneficios, vaga_status];
+            const atualizacao = await db.query (sql, values);
+            return response.status(200).jason(
+                {
+                 confirma: 'Sucesso',
+                 message: 'Vaga' + vaga_id + 'atualizada com sucesso!',
+                 registrosAtualizados: atualizacao[0].affectedRows
+                }
+            );
         } catch (error) {
             return response.status (500).json({confirma: 'Erro', message: error});
         }
     },
     async apagarVagas(request, response){
         try {
-            return response.status(200).json({confirma: 'Apagar Vagas'});
+            const { vaga_id } = request.params;
+            const sql = 'DELETE FROM vagas WHERE vaga_id = ?';
+            const values = [vaga_id];
+            await db.query(sql, values);
+            return response.status(200).json(
+                 {
+                    confirma:'Sucesso',
+                    message:'Vaga com o id' + vaga_id + 'foi excluído com sucesso'
+                 }
+            );
         } catch (error) {
             return response.status (500).json({confirma: 'Erro', message: error});
         }

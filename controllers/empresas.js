@@ -40,14 +40,34 @@ module.exports = {
     },
     async editarEmpresas(request, response){
         try {
-            return response.status(200).json({confirma: 'Editar Empresas'});
+            const {emp_nome, emp_cnpj, emp_obs} = request.body;
+            const {emp_id} = request.params;
+            const sql = 'UPDATE empresas set emp_nome = ?, emp_cnpj = ?, emp_obs = ? WHERE emp_id;';
+            const values = [emp_nome, emp_cnpj, emp_obs];
+            const atualizacao = await db.query (sql, values);
+            return response.status(200).jason(
+                {
+                 confirma: 'Sucesso',
+                 message: 'Empresa' + emp_id + 'atualizada com sucesso!',
+                 registrosAtualizados: atualizacao[0].affectedRows
+                }
+            );
         } catch (error) {
             return response.status (500).json({confirma: 'Erro', message: error});
         }
     },
     async apagarEmpresas(request, response){
         try {
-            return response.status(200).json({confirma: 'Apagar Empresas'});
+            const { emp_id } = request.params;
+            const sql = 'DELETE FROM empresas WHERE emp_id = ?';
+            const values = [emp_id];
+            await db.query(sql, values);
+            return response.status(200).json(
+                 {
+                    confirma:'Sucesso',
+                    message:'Empresa com o id' + emp_id + 'foi excluída com sucesso'
+                 }
+            );
         } catch (error) {
             return response.status (500).json({confirma: 'Erro', message: error});
         }

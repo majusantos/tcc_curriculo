@@ -57,7 +57,16 @@ module.exports = {
     },
     async apagarCandidatos(request, response){
         try {
-            return response.status(200).json({confirma: 'Apagar Candidatos'});
+            const { cand_id } = request.params;
+            const sql = 'DELETE FROM candidatos WHERE cand_id = ?';
+            const values = [cand_id];
+            await db.query(sql, values);
+            return response.status(200).json(
+                 {
+                    confirma:'Sucesso',
+                    message:'Candidato com o id' + cand_id + 'foi excluído com sucesso'
+                 }
+            );
         } catch (error) {
             return response.status (500).json({confirma: 'Erro', message: error});
         }
