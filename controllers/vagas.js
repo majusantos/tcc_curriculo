@@ -20,7 +20,7 @@ module.exports = {
     },
     async cadastrarVagas(request, response){
         try {
-            const { emp_id, vaga_cargo, vaga_requisitos, vaga_quantidade, vaga_salario, vaga_cargah, vaga_beneficios, vaga_status} = request.body;
+            const {emp_id, vaga_cargo, vaga_requisitos, vaga_quantidade, vaga_salario, vaga_cargah, vaga_beneficios, vaga_status} = request.body;
             const sql = 'INSERT INTO vagas (emp_id, vaga_cargo, vaga_requisitos, vaga_quantidade, vaga_salario, vaga_cargah, vaga_beneficios, vaga_status) VALUES (?,?,?,?,?,?,?,?);';
             const values = [ emp_id, vaga_cargo, vaga_requisitos, vaga_quantidade, vaga_salario, vaga_cargah, vaga_beneficios, vaga_status]
             const confirmacao = await db.query(sql, values);
@@ -40,13 +40,13 @@ module.exports = {
         try {
             const {emp_id, vaga_cargo, vaga_requisitos, vaga_quantidade, vaga_salario, vaga_cargah, vaga_beneficios, vaga_status} = request.body;
             const {vaga_id} = request.params;
-            const sql = 'UPDATE vagas set emp_id = ?, vaga_cargo = ?, vaga_requisitos = ?, vaga_quantidade = ?, vaga_salario = ?, vaga_cargah = ?, vaga_beneficios = ?, vaga_status = ? WHERE vaga_id;';
-            const values = [emp_id, vaga_cargo, vaga_requisitos, vaga_quantidade, vaga_salario, vaga_cargah, vaga_beneficios, vaga_status];
+            const sql = 'UPDATE vagas set emp_id = ?, vaga_cargo = ?, vaga_requisitos = ?, vaga_quantidade = ?, vaga_salario = ?, vaga_cargah = ?, vaga_beneficios = ?, vaga_status = ? WHERE vaga_id = ?;';
+            const values = [emp_id, vaga_cargo, vaga_requisitos, vaga_quantidade, vaga_salario, vaga_cargah, vaga_beneficios, vaga_status, vaga_id];
             const atualizacao = await db.query (sql, values);
-            return response.status(200).jason(
+            return response.status(200).json(
                 {
                  confirma: 'Sucesso',
-                 message: 'Vaga' + vaga_id + 'atualizada com sucesso!',
+                 message: 'Vaga ' + vaga_id + ' atualizada com sucesso!',
                  registrosAtualizados: atualizacao[0].affectedRows
                 }
             );
@@ -63,7 +63,7 @@ module.exports = {
             return response.status(200).json(
                  {
                     confirma:'Sucesso',
-                    message:'Vaga com o id' + vaga_id + 'foi excluído com sucesso'
+                    message:'Vaga com o id ' + vaga_id + ' foi excluído com sucesso'
                  }
             );
         } catch (error) {

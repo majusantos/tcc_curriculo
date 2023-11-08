@@ -2,7 +2,7 @@ const mysql = require('mysql2/promise');
 
 const bd_usuario = 'usu_tcc_32'; // usuário
 const bd_senha = 'curriculo23'; // senha
-const bd_servidor = '10.120.168.203'; // servidor
+const bd_servidor = '10.120.168.194'; // servidor
 const bd_porta = '3306'; // porta
 const bd_banco = 'curriculo'; //nome do banco
 let connection;

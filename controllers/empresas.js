@@ -29,7 +29,7 @@ module.exports = {
                 {
                     confirma:'Sucesso',
                     message:'Empresa efetuada com sucesso',
-                    emp_id2
+                    emp_id
                 }
             );
             }
@@ -42,13 +42,13 @@ module.exports = {
         try {
             const {emp_nome, emp_cnpj, emp_obs} = request.body;
             const {emp_id} = request.params;
-            const sql = 'UPDATE empresas set emp_nome = ?, emp_cnpj = ?, emp_obs = ? WHERE emp_id;';
-            const values = [emp_nome, emp_cnpj, emp_obs];
+            const sql = 'UPDATE empresas set emp_nome = ?, emp_cnpj = ?, emp_obs = ? WHERE emp_id = ?;';
+            const values = [emp_nome, emp_cnpj, emp_obs, emp_id];
             const atualizacao = await db.query (sql, values);
-            return response.status(200).jason(
+            return response.status(200).json(
                 {
                  confirma: 'Sucesso',
-                 message: 'Empresa' + emp_id + 'atualizada com sucesso!',
+                 message: 'Empresa ' + emp_id + ' atualizada com sucesso!',
                  registrosAtualizados: atualizacao[0].affectedRows
                 }
             );
@@ -65,7 +65,7 @@ module.exports = {
             return response.status(200).json(
                  {
                     confirma:'Sucesso',
-                    message:'Empresa com o id' + emp_id + 'foi excluída com sucesso'
+                    message:'Empresa com o id ' + emp_id + ' foi excluída com sucesso'
                  }
             );
         } catch (error) {

@@ -13,8 +13,8 @@ const VagasController = require  ('../controllers/vagas');
 // definição das rotas
 router.get('/candidato_vaga', CandidatoVagaController.listarCandidatoVaga);
 router.post('/candidato_vaga', CandidatoVagaController.cadastrarCandidatoVaga);
-router.patch('/candidato_vaga', CandidatoVagaController.editarCandidatoVaga);
-router.delete('/candidato_vaga', CandidatoVagaController.apagarCandidatoVaga);
+router.patch('/candidato_vaga/:vaga_id/:cand_id', CandidatoVagaController.editarCandidatoVaga);
+router.delete('/candidato_vaga/:vaga_id/:cand_id', CandidatoVagaController.apagarCandidatoVaga);
 
 router.get('/candidatos', CandidatosController.listarCandidatos);
 router.post('/candidatos', CandidatosController.cadastrarCandidatos);

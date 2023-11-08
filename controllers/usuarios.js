@@ -40,13 +40,13 @@ module.exports = {
         try {
             const {usu_nome, usu_email, usu_senha, usu_tipo, usu_telefone, usu_endereco, usu_cep, usu_estado, usu_cidade} = request.body;
             const {usu_id} = request.params;
-            const sql = 'UPDATE usuario set usu_nome = ?, usu_email = ?, usu_senha = ?, usu_tipo = ?, usu_telefone = ?, usu_endereco = ?, usu_cep = ?, usu_estado = ?, usu_cidade = ? WHERE usu_id;';
-            const values = [usu_nome, usu_email, usu_senha, usu_tipo, usu_telefone, usu_endereco, usu_cep, usu_estado, usu_cidade];
+            const sql = 'UPDATE usuarios set usu_nome = ?, usu_email = ?, usu_senha = ?, usu_tipo = ?, usu_telefone = ?, usu_endereco = ?, usu_cep = ?, usu_estado = ?, usu_cidade = ? WHERE usu_id = ?;';
+            const values = [usu_nome, usu_email, usu_senha, usu_tipo, usu_telefone, usu_endereco, usu_cep, usu_estado, usu_cidade, usu_id];
             const atualizacao = await db.query (sql, values);
-            return response.status(200).jason(
+            return response.status(200).json(
                 {
                  confirma: 'Sucesso',
-                 message: 'Usuário' + usu_id + 'atualizado com sucesso!',
+                 message: 'Usuário ' + usu_id + ' atualizado com sucesso!',
                  registrosAtualizados: atualizacao[0].affectedRows
                 }
             );
@@ -63,7 +63,7 @@ module.exports = {
             return response.status(200).json(
                  {
                     confirma:'Sucesso',
-                    message:'Usuário com o id' + usu_id + 'foi excluído com sucesso'
+                    message:'Usuário com o id ' + usu_id + ' foi excluído com sucesso'
                  }
             );
         } catch (error) {

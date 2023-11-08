@@ -41,13 +41,13 @@ module.exports = {
         try {
             const {exp_empresa, exp_cargo, exp_dt_inicio, exp_dt_fim, exp_descricao_cargo, cand_id} = request.body;
             const {exp_id} = request.params;
-            const sql = 'UPDATE experiencias set exp_empresa = ?, exp_cargo = ?, exp_dt_inicio = ?, exp_dt_fim = ?, exp_descricao_cargo = ?, cand_id = ? WHERE exp_id;';
-            const values = [exp_empresa, exp_cargo, exp_dt_inicio, exp_dt_fim, exp_descricao_cargo, cand_id];
+            const sql = 'UPDATE experiencias set exp_empresa = ?, exp_cargo = ?, exp_dt_inicio = ?, exp_dt_fim = ?, exp_descricao_cargo = ?, cand_id = ? WHERE exp_id = ?;';
+            const values = [exp_empresa, exp_cargo, exp_dt_inicio, exp_dt_fim, exp_descricao_cargo, cand_id, exp_id];
             const atualizacao = await db.query (sql, values);
-            return response.status(200).jason(
+            return response.status(200).json(
                 {
                  confirma: 'Sucesso',
-                 message: 'Experiência' + exp_id + 'atualizada com sucesso!',
+                 message: 'Experiência ' + exp_id + ' atualizada com sucesso!',
                  registrosAtualizados: atualizacao[0].affectedRows
                 }
             );
@@ -64,7 +64,7 @@ module.exports = {
             return response.status(200).json(
                  {
                     confirma:'Sucesso',
-                    message:'Experiência com o id' + exp_id + 'foi excluída com sucesso'
+                    message:'Experiência com o id ' + exp_id + ' foi excluída com sucesso'
                  }
             );
         } catch (error) {

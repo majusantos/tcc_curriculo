@@ -41,13 +41,13 @@ module.exports = {
         try {
             const {cand_id, cur_nome, cur_data_inicio, cur_data_fim, cur_obs, cur_concluido} = request.body;
             const {cur_id} = request.params;
-            const sql = 'UPDATE cursos set cand_id = ?, cur_nome = ?, cur_data_inicio = ?, cur_data_fim = ?, cur_obs = ?, cur_cocluido = ? WHERE cur_id;';
-            const values = [cand_id, cur_nome, cur_data_inicio, cur_data_fim, cur_obs, cur_concluido];
+            const sql = 'UPDATE cursos set cand_id = ?, cur_nome = ?, cur_data_inicio = ?, cur_data_fim = ?, cur_obs = ?, cur_concluido = ? WHERE cur_id = ?;';
+            const values = [cand_id, cur_nome, cur_data_inicio, cur_data_fim, cur_obs, cur_concluido, cur_id];
             const atualizacao = await db.query (sql, values);
-            return response.status(200).jason(
+            return response.status(200).json(
                 {
                  confirma: 'Sucesso',
-                 message: 'Curso' + cur_id + 'atualizado com sucesso!',
+                 message: 'Curso ' + cur_id + ' atualizado com sucesso!',
                  registrosAtualizados: atualizacao[0].affectedRows
                 }
             );
@@ -64,7 +64,7 @@ module.exports = {
             return response.status(200).json(
                  {
                     confirma:'Sucesso',
-                    message:'Curso com o id' + cand_id + 'foi excluído com sucesso'
+                    message:'Curso com o id ' + cur_id + ' foi excluído com sucesso'
                  }
             );
         } catch (error) {

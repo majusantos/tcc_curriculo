@@ -30,7 +30,7 @@ module.exports = {
                 {
                     confirma:'Sucesso',
                     message:'Cadastro efetuado com sucesso',
-                    cand_id2 
+                    cand_id 
                 }
             );
         } catch (error) {
@@ -44,10 +44,10 @@ module.exports = {
             const sql = 'UPDATE candidatos set cand_cpf = ?, cand_dtnasc = ?, cand_profissao = ?, cand_defi = ?, cand_obs = ?, cand_nivel_esc = ?, cand_status = ? WHERE cand_id;';
             const values = [cand_cpf, cand_dtnasc, cand_profissao, cand_defi, cand_obs, cand_nivel_esc, cand_status];
             const atualizacao = await db.query (sql, values);
-            return response.status(200).jason(
+            return response.status(200).json(
                 {
                  confirma: 'Sucesso',
-                 message: 'Candidato' + cand_id + 'atualizado com sucesso!',
+                 message: 'Candidato ' + cand_id + ' atualizado com sucesso!',
                  registrosAtualizados: atualizacao[0].affectedRows
                 }
             );
@@ -64,7 +64,7 @@ module.exports = {
             return response.status(200).json(
                  {
                     confirma:'Sucesso',
-                    message:'Candidato com o id' + cand_id + 'foi excluído com sucesso'
+                    message:'Candidato com o id ' + cand_id + ' foi excluído com sucesso'
                  }
             );
         } catch (error) {
